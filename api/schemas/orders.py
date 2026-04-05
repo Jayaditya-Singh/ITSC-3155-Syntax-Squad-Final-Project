@@ -29,6 +29,8 @@ class OrderUpdate(BaseModel):
 
 class Order(OrderBase):
     id: int
+    customer_id: Optional[int] = None      # ← add this line
+    promotion_id: Optional[int] = None     # ← add this line
     order_date: Optional[datetime] = None
     tracking_number: Optional[str] = None
     customer: Optional[Customer] = None

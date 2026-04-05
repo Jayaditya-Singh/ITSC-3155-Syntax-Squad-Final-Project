@@ -45,7 +45,7 @@ def update(db: Session, item_id, request):
         item = db.query(model.Resource).filter(model.Resource.id == item_id)
         if not item.first():
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Resource not found!")
-        update_data = request.dict(exclude_unset=True)
+        update_data = request.model_dump(exclude_unset=True)
         item.update(update_data, synchronize_session=False)
         db.commit()
     except SQLAlchemyError as e:

@@ -14,7 +14,7 @@ def test_integration_create_promotion_percent(sample_promotion_data):
     response = client.post(BASE + "/", json=sample_promotion_data)
     assert response.status_code == 201
     data = response.json()
-    assert data["promo_code"] == "SAVE15"
+    assert data["promo_code"] == sample_promotion_data["promo_code"]  # ← use fixture value
     assert float(data["discount_percent"]) == 15.0
     assert data["is_active"] is True
 
@@ -52,9 +52,10 @@ def test_integration_read_all_promotions():
 
 def test_integration_read_by_code(sample_promotion_data):
     client.post(BASE + "/", json=sample_promotion_data)
-    response = client.get(f"{BASE}/code/SAVE15")
+    promo_code = sample_promotion_data["promo_code"]  # ← use fixture value
+    response = client.get(f"{BASE}/code/{promo_code}")
     assert response.status_code == 200
-    assert response.json()["promo_code"] == "SAVE15"
+    assert response.json()["promo_code"] == promo_code
 
 
 def test_integration_read_by_code_invalid():

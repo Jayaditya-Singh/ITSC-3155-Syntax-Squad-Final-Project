@@ -1,4 +1,5 @@
 import pytest
+import uuid
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -53,9 +54,10 @@ def client():
 
 @pytest.fixture
 def sample_customer_data():
+    unique = uuid.uuid4().hex[:8]
     return {
-        "name": "Jane Doe",
-        "email": "jane@example.com",
+        "name": f"Jane Doe {unique}",
+        "email": f"jane_{unique}@example.com",
         "phone": "704-555-0100",
         "address": "123 Main St, Charlotte, NC"
     }
@@ -63,8 +65,9 @@ def sample_customer_data():
 
 @pytest.fixture
 def sample_menu_item_data():
+    unique = uuid.uuid4().hex[:8]
     return {
-        "name": "Margherita Pizza",
+        "name": f"Margherita Pizza {unique}",
         "price": 12.99,
         "calories": 800,
         "category": "Pizza"
@@ -73,8 +76,9 @@ def sample_menu_item_data():
 
 @pytest.fixture
 def sample_resource_data():
+    unique = uuid.uuid4().hex[:8]
     return {
-        "name": "Mozzarella",
+        "name": f"Mozzarella {unique}",
         "amount": 500.0,
         "unit": "grams"
     }
@@ -91,8 +95,9 @@ def sample_recipe_data():
 
 @pytest.fixture
 def sample_promotion_data():
+    unique = uuid.uuid4().hex[:8]
     return {
-        "promo_code": "SAVE15",
+        "promo_code": f"SAVE_{unique}",
         "discount_percent": 15.0,
         "discount_amount": None,
         "expiration_date": (datetime.now() + timedelta(days=30)).isoformat(),
@@ -123,8 +128,9 @@ def sample_order_detail_data():
 
 @pytest.fixture
 def sample_payment_data():
+    unique_order = uuid.uuid4().int % 100000
     return {
-        "order_id": 1,
+        "order_id": unique_order,
         "payment_type": "Credit",
         "card_last_four": "4242",
         "transaction_status": "Approved"
@@ -133,9 +139,10 @@ def sample_payment_data():
 
 @pytest.fixture
 def sample_review_data():
+    unique_order = uuid.uuid4().int % 100000
     return {
         "customer_id": None,
-        "order_id": 1,
+        "order_id": unique_order,
         "review_text": "Great food, fast delivery!",
         "score": 5
     }
