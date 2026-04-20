@@ -25,3 +25,20 @@ class MenuItem(MenuItemBase):
 
     class ConfigDict:
         from_attributes = True
+
+
+class IngredientInfo(BaseModel):
+    name: str
+    amount: float
+    unit: str
+
+    class ConfigDict:
+        from_attributes = True
+
+
+class MenuItemDetail(MenuItemBase):
+    id: int
+    ingredients: list[IngredientInfo] = []
+
+    class ConfigDict:
+        from_attributes = True
