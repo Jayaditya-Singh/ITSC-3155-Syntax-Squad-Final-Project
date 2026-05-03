@@ -29,3 +29,11 @@ uvicorn api.main:app --reload
 
 ### Interactive API docs
 http://127.0.0.1:8000/docs
+
+---
+
+## Project Structure
+
+The CRUD methods for each table are defined in the `api/controllers/` folder — each table has its own controller file that handles create, read, update, and delete logic.
+
+The `api/routers/` folder pulls those controller methods in and exposes them as API endpoints, which is what shows up in the Swagger UI.
